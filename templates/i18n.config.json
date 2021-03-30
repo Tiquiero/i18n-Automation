@@ -1,0 +1,77 @@
+{
+  "extract": {
+    "fromCode": [
+      "./pages"
+    ],
+    "toMarkdown": "i18n/md",
+    "rules": {
+      "columnInfo": [
+        {
+          "name": "key",
+          "isPrimary": true
+        },
+        {
+          "name": "中文"
+        }
+      ],
+      "rowData": [
+        {
+          "sentenceReg": "/(?:intl.formatMessag).+(?:\\))/g",
+          "element": [
+            {
+              "wordsReg": "/(?:id:\\s*(['\"])([^\\1]+?)\\1)/",
+              "wordsRegIndex": 2,
+              "columnNum": 1
+            },
+            {
+              "wordsReg": "/(?:defaultMessage:\\s*(['\"])([^\\1]+?)\\1)/",
+              "wordsRegIndex": 2,
+              "columnNum": 2
+            }
+          ]
+        },
+        {
+          "sentenceReg": "/(?:<FormattedMessage).+\\/>/g",
+          "element": [
+            {
+              "wordsReg": "/(?:id=)\\s*(['\"])([^\\1]+?)\\1/",
+              "wordsRegIndex": 2,
+              "columnNum": 1
+            },
+            {
+              "wordsReg": "/(?:defaultMessage=)\\s*(['\"])([^\\1]+?)\\1/",
+              "wordsRegIndex": 2,
+              "columnNum": 2
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "generate": {
+    "fromMarkdown": [
+      "i18n/md"
+    ],
+    "toLocales": "locales2",
+    "rules": [
+      {
+        "fromColumn": {
+          "keyColumnNum": 1,
+          "valColumnNum": 1
+        },
+        "toResource": {
+          "name": "en-US"
+        }
+      },
+      {
+        "fromColumn": {
+          "keyColumnNum": 1,
+          "valColumnNum": 2
+        },
+        "toResource": {
+          "name": "zh-CN"
+        }
+      }
+    ]
+  }
+}

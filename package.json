@@ -1,0 +1,22 @@
+{
+  "name": "i18n-automation",
+  "version": "1.0.0",
+  "description": "i18n-automation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tiquiero/i18n-Automation.git"
+  },
+  "keywords": [
+    "i18n-automation"
+  ],
+  "author": "Tiquiero",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Tiquiero/i18n-Automation/issues"
+  },
+  "homepage": "https://github.com/Tiquiero/i18n-Automation#readme"
+}
