@@ -9,11 +9,20 @@ exports.getPathConcat = (path1, path2) => {
   return PATH.join(path1, path2);
 }
 
-exports.getPathAbsolute = (pathR) => {
+exports.getAbsolutePath = (path) => {
   const workDir = process.cwd();
-  if (pathR === '.') {
+  if (path === '.') {
     return workDir
   } else {
-    return PATH.join(workDir, pathR);
+    return p.join(workDir, path);
   }
+}
+
+exports.getPathType = (path) => {
+  return fs.statSync(path).isDirectory() ? 'dir' : 'file';
+}
+
+exports.getFileNameNoSuffix = (filePath) => {
+  const fileName = PATH.basename(filePath);
+  return fileName.match(/([^\.]+)/)[1];
 }

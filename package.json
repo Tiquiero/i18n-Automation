@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "i18n-automation",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "bin": {
+    "i18n": "index.js"
   },
   "repository": {
     "type": "git",
@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/Tiquiero/i18n-Automation/issues"
   },
-  "homepage": "https://github.com/Tiquiero/i18n-Automation#readme"
+  "homepage": "https://github.com/Tiquiero/i18n-Automation#readme",
+  "dependencies": {
+    "lodash": "^4.17.21"
+  }
 }

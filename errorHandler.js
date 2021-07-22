@@ -18,3 +18,8 @@ exports.configFileNotFoundErrorHandler = () => {
   process.exit(1);
 }
 
+exports.fromCodeErrorHandler =() => {
+  console.error("fromCode参数格式错误，仅支持字符串或者字符串数组");
+  process.exit(1);
+}
+

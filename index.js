@@ -1,12 +1,24 @@
-const { TASK, helpMessage } = require('../const');
-const { initConfig } = require('../Handler/initHandler');
-const { argumentErrorHanler } = require('../Handler/errorHandler');
-const { tasksLauncher } = require('../Task/launch');
+const { TASK, helpMessage, configFileName } = require('./const');
+const { argumentErrorHanler, initConfigFileErrorHandler } = require('./errorHandler');
+const { tasksLauncher } = require('./TaskLaunch/launch');
+const { readFileBuffer, writeFileBuffer } = require("./utils/fileUtils");
+const { getPathConcat } = require("./utils/pathUtils");
 
-const workDir = peocess.cwd();
+const workDir = process.cwd();
 const argv = process.argv.slice(2);
 
 if (argv.length === 0) argv.push('help');
+
+const initConfig = (workDir) => {
+  try {
+    const configTpPath = getPathConcat(__dirname, `./templates/${configFileName}`);
+    const configTp = readFileBuffer(configTpPath);
+    const targetConfigPath = getPathConcat(workDir, configFileName);
+    writeFileBuffer(targetConfigPath, configTp);
+  } catch {
+    initConfigFileErrorHandler();
+  }
+}
 
 // 解析第一个参数
 const argv1Handler = argv1 => {
