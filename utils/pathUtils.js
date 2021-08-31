@@ -63,6 +63,6 @@ exports.getFilePathFiltered = (filePathArr, options) => {
       }
     }
     return regMapResult
-  })
+  });
   return filterResult
 }

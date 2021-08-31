@@ -6,7 +6,7 @@ const { getSliceBasePath, getPathType, getDirPathFiltered, getFilePathFiltered }
 
 const extraCodeFile = (codeFile, mdDir, rules) => {
   const toMdFile = path.join(mdDir, getFileNameNoSuffix(codeFile) + '.md');
-  // extraIO(codeFile, toMdFile, rules);
+  extraIO(codeFile, toMdFile, rules);
 }
 
 const extraCodeDir = (codeDir, mdDir, rules, options) => {
@@ -28,7 +28,7 @@ const extraCodeDir = (codeDir, mdDir, rules, options) => {
       files = getFilePathFiltered(files, options);
     }
     files.forEach((filePath) => {
-      extraCodeFile(filePath, curMdDirPath, rules, options);
+      extraCodeFile(filePath, curMdDirPath, rules);
     })
   })
 }
