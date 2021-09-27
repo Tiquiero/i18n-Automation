@@ -1,10 +1,6 @@
 const fs = require('fs');
 const PATH = require('path');
 
-exports.isPathExist = (path) => {
-  return fs.existsSync(path)
-}
-
 exports.getPathConcat = (path1, path2) => {
   return PATH.join(path1, path2);
 }

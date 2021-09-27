@@ -40,23 +40,11 @@ const argv2Handler = (argv2) => {
     case '-e':
       taskQueue = [TASK.EXTRACT];
       break;
-    case '-t':
-      taskQueue = [TASK.TRANSLATE];
-      break;
     case '-g':
       taskQueue = [TASK.GENERATE];
       break;
-    case '-et':
-      taskQueue = [TASK.EXTRACT, TASK.TRANSLATE];
-      break;
     case '-eg':
       taskQueue = [TASK.EXTRACT, TASK.GENERATE];
-      break;
-    case '-tg':
-      taskQueue = [TASK.TRANSLATE, TASK.GENERATE];
-      break;
-    case '-etg':
-      taskQueue = [TASK.EXTRACT, TASK.TRANSLATE, TASK.GENERATE];
       break;
     default:
       argumentErrorHanler();
@@ -78,13 +66,11 @@ const readJsonConfig = () => {
 
 // 任务分配器：分配到对应的taskController
 const taskStart = (taskType, config) => {
-  const { extract, translate, generate } = config;
+  const { extract, generate } = config;
   
   switch (taskType) {
     case TASK.EXTRACT:
       return Extract(extract);
-    case TASK.TRANSLATE:
-      return Translate(translate);
     case TASK.GENERATE:
       return Generate(generate);
   }

@@ -7,8 +7,7 @@
     "rules": {
       "columnInfo": [
         {
-          "name": "key",
-          "isPrimary": true
+          "name": "key"
         },
         {
           "name": "中文"
