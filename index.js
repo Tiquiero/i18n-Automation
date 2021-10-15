@@ -1,12 +1,20 @@
+#!/usr/bin/env node
 const path = require('path');
 const fs = require('fs');
 const { TASK, helpMessage, configFileName } = require('./const');
-const { argumentErrorHanler, initConfigFileErrorHandler, configFileNotFoundErrorHandler, configParseErrorHandler } = require('./errorHandler');
-const { Extract, Generate } = require('./TaskController/index');
+const { argumentErrorHandler, initConfigFileErrorHandler, configFileNotFoundErrorHandler, configParseErrorHandler } = require('./errorHandler');
+const { Extract } = require('./TaskController/extract');
+const { Generate } = require('./TaskController/generate');
 
+// 获取用户输入的路径，返回进程的当前工作目录
 const workDir = process.cwd();
 const argv = process.argv.slice(2);
 
+/**
+ * 获取用户输入的任务和参数
+ * process.argv返回一个数组，第一个元素是 process.execPath。第二个元素是正被执行的 JavaScript 文件的路径。 其余的元素是任何额外的命令行参数
+ * [process.execPath, 文件路径, 参数1 参数2 参数3....]
+ */
 if (argv.length === 0) argv.push('help');
 
 const initConfig = (workDir) => {
@@ -28,8 +36,10 @@ const argv1Handler = argv1 => {
     case 'help':
       console.log(helpMessage);
       process.exit(0);
+    case 'task':
+      break;
     default:
-      argumentErrorHanler();
+      argumentErrorHandler();
   }
 }
 
@@ -47,7 +57,7 @@ const argv2Handler = (argv2) => {
       taskQueue = [TASK.EXTRACT, TASK.GENERATE];
       break;
     default:
-      argumentErrorHanler();
+      argumentErrorHandler();
   }
   return taskQueue;
 }

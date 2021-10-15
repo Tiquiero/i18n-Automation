@@ -1,15 +1,15 @@
 
 const path = require('path');
-const { extraIO } = require('../TaskIO');
+const { extractIO } = require('../TaskIO/extract');
 const { getAllDirNameRecursion, getFilesPathArrByDir, resetDir, getFileNameNoSuffix } = require('../utils/fileUtils');
 const { getSliceBasePath, getPathType, getDirPathFiltered, getFilePathFiltered } = require('../utils/pathUtils');
 
-const extraCodeFile = (codeFile, mdDir, rules) => {
+const extractCodeFile = (codeFile, mdDir, rules) => {
   const toMdFile = path.join(mdDir, getFileNameNoSuffix(codeFile) + '.md');
-  extraIO(codeFile, toMdFile, rules);
+  extractIO(codeFile, toMdFile, rules);
 }
 
-const extraCodeDir = (codeDir, mdDir, rules, options) => {
+const extractCodeDir = (codeDir, mdDir, rules, options) => {
   let dirPathArr = getAllDirNameRecursion(codeDir);
   if (options && options.excluded) {
     dirPathArr = getDirPathFiltered(dirPathArr, options.excluded)
@@ -28,7 +28,7 @@ const extraCodeDir = (codeDir, mdDir, rules, options) => {
       files = getFilePathFiltered(files, options);
     }
     files.forEach((filePath) => {
-      extraCodeFile(filePath, curMdDirPath, rules);
+      extractCodeFile(filePath, curMdDirPath, rules);
     })
   })
 }
@@ -37,10 +37,10 @@ const extraCodeDir = (codeDir, mdDir, rules, options) => {
 const fromCodeTypeOfString = (fromCode, toMarkdown, rules) => {
   switch (getPathType(fromCode)) {
     case 'file':
-      extraCodeFile(fromCode, toMarkdown, rules);
+      extractCodeFile(fromCode, toMarkdown, rules);
       break;
     case 'dir':
-      extraCodeDir(fromCode, toMarkdown, rules);
+      extractCodeDir(fromCode, toMarkdown, rules);
       break;
     default:
       break;
@@ -60,13 +60,13 @@ const fromCodeTypeOfArray = (fromCode, toMarkdown, rules) => {
           suffixs: i.suffixs,
           notSuffixs: i.notSuffixs,
         }
-        extraCodeDir(i.path, toMarkdown, rules, options);
+        extractCodeDir(i.path, toMarkdown, rules, options);
         break;
     }
   })
 }
 
-exports.extraService = (fromCode, toMarkdown, rules) => {
+exports.extractService = (fromCode, toMarkdown, rules) => {
   resetDir(toMarkdown);
   if (typeof fromCode === 'string') {
     fromCodeTypeOfString(fromCode, toMarkdown, rules);

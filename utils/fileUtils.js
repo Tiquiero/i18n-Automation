@@ -9,14 +9,16 @@ exports.createFile = (filePath) => {
   }
 }
 
-exports.createDir = (dirPath) => {
+const createDir = (dirPath) => {
   if (!fs.existsSync(dirPath)) {
      // recursive: 支持递归创建
     fs.mkdirSync(dirPath, { recursive: true });
   }
 }
 
-exports.deleteDir = (dirPath) => {
+exports.createDir = createDir;
+
+const deleteDir = (dirPath) => {
   if(fs.existsSync(dirPath)) {
     const files = fs.readdirSync(dirPath);
     if (files.length) {
@@ -33,13 +35,15 @@ exports.deleteDir = (dirPath) => {
   }
 }
 
+exports.deleteDir = deleteDir;
+
 exports.resetDir = (path) => {
   deleteDir(path);
   createDir(path);
 }
 
 exports.getFileNameNoSuffix = (filePath) => {
-  const fileName = p.basename(filePath);
+  const fileName = PATH.basename(filePath);
   return fileName.match(/([^\.]+)/)[1]
 }
 
@@ -48,11 +52,11 @@ exports.getAllDirNameRecursion = (dirPath) => {
   const recursion = (dirPath, dirPathArr) => {
     dirPathArr.push(dirPath);
     const dirs = fs.readdirSync(dirPath).filter((item) => {
-      const statObj = fs.statSync(p.join(dirPath, item)); // 返回该路径的文件信息
+      const statObj = fs.statSync(PATH.join(dirPath, item)); // 返回该路径的文件信息
       return statObj.isDirectory();
     });
     dirs.forEach((dir) => {
-      recursion(p.join(dirPath, dir), dirPathArr)
+      recursion(PATH.join(dirPath, dir), dirPathArr)
     })
   }
   recursion(dirPath, dirPathArr);
@@ -63,7 +67,7 @@ exports.getFilesPathArrByDir = (dirPath, fileNameReg) => {
   let filesPathArr = [];
   let files = fs.readdirSync(dirPath).filter((item) => {
     // 过滤文件夹
-    const statObj = fs.statSync(p.join(dirPath, item));
+    const statObj = fs.statSync(PATH.join(dirPath, item));
     return !statObj.isDirectory()
   });
   if (fileNameReg) {
@@ -73,7 +77,7 @@ exports.getFilesPathArrByDir = (dirPath, fileNameReg) => {
     })
   }
   files.forEach((file) => {
-    filesPathArr.push(p.join(dirPath, file));
+    filesPathArr.push(PATH.join(dirPath, file));
   })
   return filesPathArr;
 }

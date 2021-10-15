@@ -13,9 +13,9 @@ const extraWordsBySentence = (sentence, wordsReg, wordsRegIndex) => {
 }
 
 
-exports.extraIO = (fromCodeFilePath, toMdFilePath, rules) => {
+exports.extractIO = (fromCodeFilePath, toMdFilePath, rules) => {
   console.log('-------------------------------------------------------------------------');
-  console.log(fromCodeFilePath);
+  console.log('fromCodeFilePath-----', fromCodeFilePath);
 
   // 读取文件内容
   const context = fs.readFileSync(fromCodeFilePath, { encoding: 'utf-8' });
@@ -34,8 +34,8 @@ exports.extraIO = (fromCodeFilePath, toMdFilePath, rules) => {
           const sentenceVal = sentence.match(wordsReg);
           rowData[columnNum - 1] = sentenceVal !== null ? sentenceVal[wordsRegIndex] : '_';
         })
-        console.log(sentence);
-        console.log(rowData);
+        console.log('sentence----', sentence);
+        console.log('rowData----', rowData);
         // content = insertRowByPrimaryLimit(content, rowData);
       })
     }

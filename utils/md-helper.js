@@ -12,3 +12,5 @@ const initMdTableStrByHeadArr = (headRow) => {
   // |-----|-----|
   return `${headRowStr}\r\n${secondRowStr}\r\n`;
 }
+
+module.exports = { initMdTableStrByHeadArr };

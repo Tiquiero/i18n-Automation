@@ -1,7 +1,7 @@
 const path = require('path');
 const { getAbsolutePath } = require('../utils/pathUtils');
 const { fromCodeErrorHandler } = require('../errorHandler');
-const { extraService } = require('../TaskService/extrat');
+const { extractService } = require('../TaskService/extract');
 
 const convertFromCodeConfig = (fromCode) => {
   // 获取 fromCode 配置的路径
@@ -53,10 +53,12 @@ const convertRulesConfig = (rules) => {
   return rules;
 }
 
-exports.taskExtra = (config) => {
+const Extract = (config) => {
   return new Promise((resolve, reject) => {
     const { fromCode, toMarkdown, rules } = config;
-    extraService(convertFromCodeConfig(fromCode), getAbsolutePath(toMarkdown), convertRulesConfig(rules));
+    extractService(convertFromCodeConfig(fromCode), getAbsolutePath(toMarkdown), convertRulesConfig(rules));
     resolve();
   })
 }
+
+module.exports = { Extract };

@@ -4,7 +4,7 @@
   "description": "i18n-automation",
   "main": "index.js",
   "bin": {
-    "i18n": "index.js"
+    "i18nM": "index.js"
   },
   "repository": {
     "type": "git",
