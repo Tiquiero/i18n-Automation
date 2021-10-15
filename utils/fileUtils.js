@@ -1,14 +1,6 @@
 const fs = require('fs');
 const PATH = require('path');
 
-exports.createFile = (filePath) => {
-  const dirPath = PATH.dirname(filePath);
-  createDir(dirPath);
-  if (!fs.existsSync(filePath)) {
-    fs.openSync(filePath, 'w')
-  }
-}
-
 const createDir = (dirPath) => {
   if (!fs.existsSync(dirPath)) {
      // recursive: 支持递归创建
@@ -17,6 +9,15 @@ const createDir = (dirPath) => {
 }
 
 exports.createDir = createDir;
+
+exports.createFile = (filePath) => {
+  const dirPath = PATH.dirname(filePath);
+  createDir(dirPath);
+  if (!fs.existsSync(filePath)) {
+    fs.openSync(filePath, 'w')
+  }
+  return filePath;
+}
 
 const deleteDir = (dirPath) => {
   if(fs.existsSync(dirPath)) {
