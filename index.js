@@ -2,7 +2,7 @@ const path = require('path');
 const fs = require('fs');
 const { TASK, helpMessage, configFileName } = require('./const');
 const { argumentErrorHanler, initConfigFileErrorHandler, configFileNotFoundErrorHandler, configParseErrorHandler } = require('./errorHandler');
-const { Extract, Translate, Generate } = require('./TaskController/index');
+const { Extract, Generate } = require('./TaskController/index');
 
 const workDir = process.cwd();
 const argv = process.argv.slice(2);
@@ -70,9 +70,9 @@ const taskStart = (taskType, config) => {
   
   switch (taskType) {
     case TASK.EXTRACT:
-      return Extract(extract);
+      return Extract(extract); // 提取
     case TASK.GENERATE:
-      return Generate(generate);
+      return Generate(generate); // 翻译
   }
 }
 

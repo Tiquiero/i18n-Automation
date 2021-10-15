@@ -61,7 +61,8 @@ exports.getAllDirNameRecursion = (dirPath) => {
 
 exports.getFilesPathArrByDir = (dirPath, fileNameReg) => {
   let filesPathArr = [];
-  let files = fs.readdirSync(dirPath).filter((item) => {// 过滤文件夹
+  let files = fs.readdirSync(dirPath).filter((item) => {
+    // 过滤文件夹
     const statObj = fs.statSync(p.join(dirPath, item));
     return !statObj.isDirectory()
   });

@@ -8,9 +8,9 @@ exports.getPathConcat = (path1, path2) => {
 exports.getAbsolutePath = (path) => {
   const workDir = process.cwd();
   if (path === '.') {
-    return workDir
+    return workDir;
   } else {
-    return p.join(workDir, path);
+    return PATH.join(workDir, path);
   }
 }
 

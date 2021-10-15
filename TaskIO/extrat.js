@@ -8,6 +8,8 @@ const extraWordsBySentence = (sentence, wordsReg, wordsRegIndex) => {
   let words = '_';
   if (sentence.match(wordsReg) !== null) words = sentence.match(wordsReg)[wordsRegIndex];
   return words;
+
+  sentence.match(wordsReg) !== null ? sentence.match(wordsReg)[wordsRegIndex] : '_'
 }
 
 
@@ -29,14 +31,15 @@ exports.extraIO = (fromCodeFilePath, toMdFilePath, rules) => {
         let rowData = [];
         element.forEach((ele) => {
           const { columnNum, wordsReg, wordsRegIndex } = ele;
-          rowData[columnNum - 1] = extraWordsBySentence(sentence, wordsReg, wordsRegIndex);
+          const sentenceVal = sentence.match(wordsReg);
+          rowData[columnNum - 1] = sentenceVal !== null ? sentenceVal[wordsRegIndex] : '_';
         })
         console.log(sentence);
         console.log(rowData);
-        content = insertRowByPrimaryLimit(content, rowData);
+        // content = insertRowByPrimaryLimit(content, rowData);
       })
     }
   });
-  fs.writeFileSync(createFile(toMdFilePath), content);
+  // fs.writeFileSync(createFile(toMdFilePath), content);
   console.log('-------------------------------------------------------------------------');
 }
