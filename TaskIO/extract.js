@@ -3,15 +3,6 @@ const fs = require('fs');
 const { initMdTableStrByHeadArr, insertRow } = require("../utils/md-helper");
 const { createFile } = require("../utils/fileUtils");
 
-// 从句子中取出一个符合规则的键
-const extraWordsBySentence = (sentence, wordsReg, wordsRegIndex) => {
-  let words = '_';
-  if (sentence.match(wordsReg) !== null) words = sentence.match(wordsReg)[wordsRegIndex];
-  return words;
-
-  sentence.match(wordsReg) !== null ? sentence.match(wordsReg)[wordsRegIndex] : '_'
-}
-
 exports.extractIO = (fromCodeFilePath, toMdFilePath, rules) => {
   console.log('-------------------------------------------------------------------------');
   console.log('fromCodeFilePath-----', fromCodeFilePath);
@@ -34,6 +25,8 @@ exports.extractIO = (fromCodeFilePath, toMdFilePath, rules) => {
         element.forEach((ele) => {
           const { columnNum, wordsReg, wordsRegIndex } = ele;
           const sentenceVal = sentence.match(wordsReg);
+          
+          // 从句子中取出一个符合规则的键
           newRowData[columnNum - 1] = sentenceVal !== null ? sentenceVal[wordsRegIndex] : '_';
         })
         console.log('sentence----', sentence);
