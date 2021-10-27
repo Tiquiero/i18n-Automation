@@ -13,7 +13,12 @@ const initMdTableStrByHeadArr = (headRow) => {
   return `${headRowStr}\r\n${secondRowStr}\r\n`;
 }
 
-// mdTable字符串转换为矩阵（二维数组）
+
+/**
+ *  mdTable 字符串转换为矩阵（二维数组）,因为根据正则解析到的内容rowData最后是一个数组
+ *  所以先全拼成数组后再转换为md
+ *  例如:  |key|中文| -> [['key', '中文']]
+ */
 const mdTableStrToMatrixObj = (table) => {
   const filterBlank = (item) => { return item != '' };
   const convertTrToArr = (tr) => {
@@ -22,6 +27,21 @@ const mdTableStrToMatrixObj = (table) => {
   }
   const convertTableStream = lodash.flowRight([lodash.map(convertTrToArr), lodash.filter(filterBlank), lodash.split('\r\n')]);
   return convertTableStream(table);
+}
+
+const matrixObjTomdTableStr = (matrix) => {
+  let mdTableStr = '';
+  matrix.forEach((arr) => {
+    mdTableStr += `|${arr.join('|')}|` + '\r\n';
+  });
+  return mdTableStr;
+}
+
+const insertRow = (content, rowData) => {
+  const matrix = content ? mdTableStrToMatrixObj(content) : [];
+  matrix.push(rowData);
+  let newContent = matrixObjTomdTableStr(matrix);
+  return newContent;
 }
 
 const columnArrToColumnObj = (columnArr) => {
@@ -40,28 +60,6 @@ const selectColumn = (content, columnIndex) => {
   });
   const columnObj = columnArrToColumnObj(columnArr);
   return columnObj;
-}
-
-const matrixObjTomdTableStr = (matrix) => {
-  let mdTableStr = '';
-  const convertArrToTr = (arr) => {
-    let trStr = '|' + arr.join('|') + '|';
-    return trStr
-  }
-  matrix.forEach((arr) => {
-    const trStr = convertArrToTr(arr);
-    mdTableStr += trStr + '\r\n';
-  })
-  return mdTableStr;
-}
-
-const insertRow = (content, rowData) => {
-  const matrix = content ? mdTableStrToMatrixObj(content) : [];
-  matrix.push(rowData);
-  let newContent = matrixObjTomdTableStr(matrix);
-  console.log("newContent-----", newContent)
-
-  return newContent;
 }
 
 module.exports = { initMdTableStrByHeadArr, insertRow };

@@ -5,7 +5,6 @@ const { createFile } = require("../utils/fileUtils");
 
 exports.extractIO = (fromCodeFilePath, toMdFilePath, rules) => {
   console.log('-------------------------------------------------------------------------');
-  console.log('fromCodeFilePath-----', fromCodeFilePath);
 
   // 读取文件内容
   const context = fs.readFileSync(fromCodeFilePath, { encoding: 'utf-8' });
@@ -13,7 +12,7 @@ exports.extractIO = (fromCodeFilePath, toMdFilePath, rules) => {
 
   // 处理文件内容
   let content = initMdTableStrByHeadArr(columnInfo.map(c => c.name));
-  console.log("content-----", content)
+  // console.log("content-----", content)
 
   rowData.forEach(row => {
     const { sentenceReg, element } = row;
@@ -29,7 +28,6 @@ exports.extractIO = (fromCodeFilePath, toMdFilePath, rules) => {
           // 从句子中取出一个符合规则的键
           newRowData[columnNum - 1] = sentenceVal !== null ? sentenceVal[wordsRegIndex] : '_';
         })
-        console.log('sentence----', sentence);
         console.log('newRowData----', newRowData);
         content = insertRow(content, newRowData);
       })

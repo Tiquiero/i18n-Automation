@@ -82,7 +82,7 @@ const taskStart = (taskType, config) => {
     case TASK.EXTRACT:
       return Extract(extract); // 提取
     case TASK.GENERATE:
-      return Generate(generate); // 翻译
+      return Generate(generate); // 生成
   }
 }
 
