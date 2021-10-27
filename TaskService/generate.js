@@ -1,8 +1,10 @@
 const PATH = require('path');
 const { createDir, deleteDir, createFile, getFileNameNoSuffix } = require('../utils/fileUtils');
+const { getPathType, } = require('../utils/pathUtils');
 const {
-  getPathType,
-} = require('../utils/pathUtils');
+  generateResourceFileIO,
+  generateResImpAndExpFileIO,
+} = require('../taskIO/generate');
 
 const convertMdFile = (mdFilePath, resPath, rules) => {
   rules.forEach((rule) => {
@@ -12,8 +14,8 @@ const convertMdFile = (mdFilePath, resPath, rules) => {
 
     const resFileNamePath = PATH.join(resPath, name);
     const resFilePath = PATH.join(resFileNamePath, PATH.basename(mdFilePath).replace('.md', '.js'));
-    generatorResourceFileIO(mdFilePath, keyColumnNum - 1, valColumnNum - 1, resFilePath);
-    generatorResImpAndExpFileIO(createFile(resFileNamePath + '.js'), getFileNameNoSuffix(mdFilePath), `./${name}`);
+    generateResourceFileIO(mdFilePath, keyColumnNum - 1, valColumnNum - 1, resFilePath);
+    generateResImpAndExpFileIO(createFile(resFileNamePath + '.js'), getFileNameNoSuffix(mdFilePath), `./${name}`);
   });
 }
 

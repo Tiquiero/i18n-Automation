@@ -45,7 +45,7 @@ exports.resetDir = (path) => {
 
 exports.getFileNameNoSuffix = (filePath) => {
   const fileName = PATH.basename(filePath);
-  return fileName.match(/([^\.]+)/)[1]
+  return fileName.match(/([^\.]+)/)[1];
 }
 
 exports.getAllDirNameRecursion = (dirPath) => {
