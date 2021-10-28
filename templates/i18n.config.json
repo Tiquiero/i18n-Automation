@@ -1,7 +1,7 @@
 {
   "extract": {
     "fromCode": [
-      "./pages"
+      "./src"
     ],
     "toMarkdown": "i18n/md",
     "rules": {
