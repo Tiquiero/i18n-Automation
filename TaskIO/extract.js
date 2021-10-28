@@ -28,7 +28,7 @@ exports.extractIO = (fromCodeFilePath, toMdFilePath, rules) => {
           // 从句子中取出一个符合规则的键
           newRowData[columnNum - 1] = sentenceVal !== null ? sentenceVal[wordsRegIndex] : '_';
         })
-        console.log('newRowData----', newRowData);
+        // console.log('newRowData----', newRowData);
         content = insertRow(content, newRowData);
       })
     }

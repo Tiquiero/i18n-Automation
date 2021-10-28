@@ -29,21 +29,15 @@ const convert2ColumnToResourceJsStr = (keyColumn, valColumn) => {
 const randomString = (number) => {
   let str = "";
   const charArr = "ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz012345678";
-  const len = charArr.length;
   for (i = 0; i < number; i++) {
-    str += charArr.charAt(Math.floor(Math.random() * len));
+    str += charArr.charAt(Math.floor(Math.random() * charArr.length));
   }
   return str;
 }
 
-// 首字母转小写
-const firstToLowwer = (str) => {
-  return str.slice(0, 1).toLowerCase() + str.slice(1);
-};
-
 // 插入到资源引入文件中
 const insertToResImpAndExp = (oldContent, resFileName, relativeResFilePath) => {
-  const insertVarName = randomString(3) + '_' + firstToLowwer(resFileName);
+  const insertVarName = randomString(3) + '_' + resFileName;
   let oldImport = '';
   let oldExport = ''; //只取...的部分
   if (oldContent) {
@@ -51,9 +45,11 @@ const insertToResImpAndExp = (oldContent, resFileName, relativeResFilePath) => {
     oldImport = result[0];
     oldExport = result[1].split('}')[0];
   }
-  let newImport = `import ${insertVarName} from '${relativeResFilePath.replace('\\','/')}/${resFileName}';\n`;
+
+  // 替换路径中的 \ 为 /， replace(/\\/g,"\/")
+  let newImport = `import ${insertVarName} from '${relativeResFilePath.replace(/\\/g,"\/")}/${resFileName}';\n`;
   let newExport = `  ...${insertVarName},\n`;
-  return newImport + oldImport + 'export default {\n' + newExport + oldExport + '}';
+  return oldImport + newImport + 'export default {\n' + oldExport + newExport + '}';
 }
 
 exports.generateResourceFileIO = (mdFilePath, keyColumnIndex, valColumnIndex, resFilePath) => {
