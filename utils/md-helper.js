@@ -22,7 +22,7 @@ const initMdTableStrByHeadArr = (headRow) => {
 const mdTableStrToMatrixObj = (table) => {
   const filterBlank = (item) => { return item != '' };
   const convertTrToArr = (tr) => {
-    const convertTrStream = lodash.flowRight(lodash.map(lodash.trim), lodash.filter(filterBlank), [lodash.split('|')])
+    const convertTrStream = lodash.flowRight(lodash.map(lodash.trim), lodash.filter(filterBlank), [lodash.split('|')]);
     return convertTrStream(tr);
   }
   const convertTableStream = lodash.flowRight([lodash.map(convertTrToArr), lodash.filter(filterBlank), lodash.split('\r\n')]);
@@ -40,8 +40,7 @@ const matrixObjTomdTableStr = (matrix) => {
 const insertRow = (content, rowData) => {
   const matrix = content ? mdTableStrToMatrixObj(content) : [];
   matrix.push(rowData);
-  let newContent = matrixObjTomdTableStr(matrix);
-  return newContent;
+  return matrixObjTomdTableStr(matrix);
 }
 
 const columnArrToColumnObj = (columnArr) => {
@@ -58,8 +57,7 @@ const selectColumn = (content, columnIndex) => {
   matrix.forEach(row => {
     columnArr.push(row[columnIndex]);
   });
-  const columnObj = columnArrToColumnObj(columnArr);
-  return columnObj;
+  return columnArrToColumnObj(columnArr);
 }
 
 module.exports = { initMdTableStrByHeadArr, insertRow, selectColumn };

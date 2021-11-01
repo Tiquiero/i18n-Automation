@@ -13,9 +13,7 @@ exports.createDir = createDir;
 exports.createFile = (filePath) => {
   const dirPath = PATH.dirname(filePath);
   createDir(dirPath);
-  if (!fs.existsSync(filePath)) {
-    fs.openSync(filePath, 'w')
-  }
+  if (!fs.existsSync(filePath)) fs.openSync(filePath, 'w');
   return filePath;
 }
 
@@ -58,7 +56,7 @@ exports.getAllDirNameRecursion = (dirPath) => {
     });
     dirs.forEach((dir) => {
       recursion(PATH.join(dirPath, dir), dirPathArr)
-    })
+    });
   }
   recursion(dirPath, dirPathArr);
   return dirPathArr;
@@ -69,12 +67,12 @@ exports.getFilesPathArrByDir = (dirPath, fileNameReg) => {
   let files = fs.readdirSync(dirPath).filter((item) => {
     // 过滤文件夹
     const statObj = fs.statSync(PATH.join(dirPath, item));
-    return !statObj.isDirectory()
+    return !statObj.isDirectory();
   });
   if (fileNameReg) {
     files = files.filter((fileName) => {
       const fileSuffix = fileName.match(/(\..+)$/)[1];
-      return fileNameReg.test(fileSuffix)
+      return fileNameReg.test(fileSuffix);
     })
   }
   files.forEach((file) => {

@@ -7,11 +7,8 @@ exports.getPathConcat = (path1, path2) => {
 
 exports.getAbsolutePath = (path) => {
   const workDir = process.cwd();
-  if (path === '.') {
-    return workDir;
-  } else {
-    return PATH.join(workDir, path);
-  }
+  if (path === '.') return workDir;
+  return PATH.join(workDir, path);
 }
 
 exports.getPathType = (path) => {
@@ -58,7 +55,7 @@ exports.getFilePathFiltered = (filePathArr, options) => {
         }
       }
     }
-    return regMapResult
+    return regMapResult;
   });
-  return filterResult
+  return filterResult;
 }
