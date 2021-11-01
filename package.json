@@ -1,7 +1,7 @@
 {
-  "name": "i18n-Automation",
-  "version": "1.0.0",
-  "description": "i18n-Automation",
+  "name": "i18n-automation",
+  "version": "1.0.2",
+  "description": "i18n-automation",
   "main": "index.js",
   "bin": {
     "i18nM": "index.js"
@@ -11,7 +11,7 @@
     "url": "git+https://github.com/Tiquiero/i18n-Automation.git"
   },
   "keywords": [
-    "i18n-Automation"
+    "i18n-automation"
   ],
   "author": "Tiquiero",
   "license": "MIT",
